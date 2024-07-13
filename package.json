@@ -7,7 +7,7 @@
     "test": "test",
     "start": "node ./backend/index.js",
     "dev": "nodemon ./backend/index.js",
-    "build": "cd frontend && npm run build && cp -r dist ../backend"
+    "build": "vite build"
   },
   "repository": {
     "type": "git",
