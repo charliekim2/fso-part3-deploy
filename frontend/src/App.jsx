@@ -28,19 +28,20 @@ function App() {
 
   const onSubmitPerson = (event) => {
     event.preventDefault();
-    if (persons.some((p) => name == p.name)) {
-      const guy = persons.find((p) => name == p.name);
-      if (window.confirm(`${guy.name} exists, replace number?`)) {
-        db.update({
-          name,
-          number,
-          id: guy.id,
-        }).then((r) => {
-          setPersons(persons.map((p) => (p.id !== guy.id ? p : r.data)));
-        });
-      }
-      return;
-    }
+    // Not needed because there is no endpoint for PUT
+    // if (persons.some((p) => name == p.name)) {
+    //   const guy = persons.find((p) => name == p.name);
+    //   if (window.confirm(`${guy.name} exists, replace number?`)) {
+    //     db.update({
+    //       name,
+    //       number,
+    //       id: guy.id,
+    //     }).then((r) => {
+    //       setPersons(persons.map((p) => (p.id !== guy.id ? p : r.data)));
+    //     });
+    //   }
+    //   return;
+    // }
     const newPerson = {
       name,
       number,
