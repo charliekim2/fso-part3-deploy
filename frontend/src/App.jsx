@@ -35,9 +35,17 @@ function App() {
           name,
           number,
           id: guy.id,
-        }).then((r) => {
-          setPersons(persons.map((p) => (p.id !== guy.id ? p : r.data)));
-        });
+        })
+          .then((r) => {
+            setPersons(persons.map((p) => (p.id !== guy.id ? p : r.data)));
+          })
+          .catch((e) => {
+            setMessage(e.response.data.error);
+            setType("error");
+            setTimeout(() => {
+              setMessage(null);
+            }, 5000);
+          });
       }
       return;
     }
@@ -45,16 +53,24 @@ function App() {
       name,
       number,
     };
-    db.create(newPerson).then((r) => {
-      let nl = [...persons];
-      nl.push(r.data);
-      setPersons(nl);
-      setMessage(`${newPerson.name} created`);
-      setType("success");
-      setTimeout(() => {
-        setMessage(null);
-      }, 5000);
-    });
+    db.create(newPerson)
+      .then((r) => {
+        let nl = [...persons];
+        nl.push(r.data);
+        setPersons(nl);
+        setMessage(`${newPerson.name} created`);
+        setType("success");
+        setTimeout(() => {
+          setMessage(null);
+        }, 5000);
+      })
+      .catch((e) => {
+        setMessage(e.response.data.error);
+        setType("error");
+        setTimeout(() => {
+          setMessage(null);
+        }, 5000);
+      });
   };
 
   const onDelete = (guy) => {
